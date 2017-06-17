@@ -24,4 +24,7 @@ public abstract class AbstractPage {
     protected void waitForElementEnabled(By locator) {
         new WebDriverWait(driver, WAIT_FOR_ELEMENT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(locator));
     }
+    protected void waitForFillingPlanningDuration(By locator){
+
+    }
 }
