@@ -1,5 +1,6 @@
 package ctc;
 
+import ctc.Service.WebDriverFactory;
 import ctc.pages.BTListPage;
 import ctc.pages.LoginPage;
 import org.openqa.selenium.By;
@@ -24,19 +25,22 @@ public class CTCTest {
     private static final String country = "Belarus";
     private static final String destinationCity = "Minsk";
     private static final String destinationAddress = "Minsk";
+    private static final String firstName = "Denis";
+    private static final String textAfterSuccessfulLogin = "Logged in as " + firstName;
+    String sectionName = "Business Trips";
 
 
     @Test(description = "Log in")
     public void loginTest(){
         LoginPage loginPage = new LoginPage(driver).open(baseUrl).login(userName, pwdName);
-        Assert.assertTrue(loginPage.readLoggedinText().contains("Logged in as"));
+        Assert.assertTrue(loginPage.readLoggedinText().contains(textAfterSuccessfulLogin), "Impossible to login to CTC");
     }
 
     @Test(dependsOnMethods = "loginTest", description = "check opening the list of Bussiness Trips")
 //    @Parameters({"baseUrl"})
     public void openListOfBT() {
         BTListPage btListPage = new BTListPage(driver).open(baseUrl);
-        Assert.assertEquals(btListPage.readListName(), "Business Trips");
+        Assert.assertEquals(btListPage.readListName(), sectionName, "The section did not found");
     }
 
     @Test(dependsOnMethods = "openListOfBT", description = "create new BT")
@@ -47,16 +51,13 @@ public class CTCTest {
 
     @BeforeClass(description = "Start browser")
     public void initBrowser() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().window().setSize(new Dimension(1600, 900));
+        WebDriverFactory.startBrowser();
 
     }
 
     @AfterClass(description = "Close browser")
-    public void afterClass() throws InterruptedException {
-        Thread.sleep(10000);
-        driver.quit();
+    public void closeBrowser() throws InterruptedException {
+        WebDriverFactory.closeBrowser();
+
     }
 }

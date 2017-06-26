@@ -1,26 +1,32 @@
 package ctc.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends AbstractPage {
     private final String ADDITIONAL_URL = "/login.do?logout=true&tz=GMT%2B06:00";
-    private static final By USERNAME_LOCATOR = By.xpath("//input[@name='username']");
-    private static final By PASSWORD_LOCATOR = By.xpath("//input[@name='password']");
-    private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//input[@name='Login']");
-    private static final By LOGGED_LOCATOR = By.xpath("//*[@id='headerLogin']/div[@class='blInfoLogin']");
+
+    @FindBy(xpath = "//input[@name='username']")
+    WebElement usernameInput;
+
+    @FindBy(xpath = "//input[@name='password']")
+    WebElement passwordInput;
+
+    @FindBy(xpath = "//input[@name='Login']")
+    WebElement loginButton;
+
+    @FindBy(xpath = "//td[@id='headerLogin']/div[@class='blInfoLogin']")
+    WebElement loggedLabel;
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
     public LoginPage login(String userName, String pwdName){
-        driver.findElement(USERNAME_LOCATOR)
-                .sendKeys(userName);
-        driver.findElement(PASSWORD_LOCATOR)
-                .sendKeys(pwdName);
-        driver.findElement(LOGIN_BUTTON_LOCATOR)
-                .click();
+        usernameInput.sendKeys(userName);
+        passwordInput.sendKeys(pwdName);
+        loginButton.click();
         return this;
     }
 
@@ -30,8 +36,7 @@ public class LoginPage extends AbstractPage {
     }
 
     public String readLoggedinText(){
-        String result = driver.findElement(LOGGED_LOCATOR)
-                .getText();
+        String result = loggedLabel.getText();
         return result;
     }
 }
