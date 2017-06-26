@@ -31,7 +31,6 @@ public class WebDriverFactory {
         driver = new FirefoxDriver();
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(WAIT_FOR_ELEMENT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
-//        driver.manage().window().setSize(new Dimension(1600, 900));
         driver.manage().window().maximize();
     }
 
