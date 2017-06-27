@@ -15,20 +15,22 @@ public class ChooseProjectBlock extends AbstractPage{
     }
 
     public ChooseProjectBlock open(){
-        driver.findElement(CHOOSE_PROJECT_LOCATOR).click();
+        waitForElementEnabled(CHOOSE_PROJECT_LOCATOR);
+        getDriver().findElement(CHOOSE_PROJECT_LOCATOR).click();
         return this;
     }
 
     public ChooseProjectBlock searchProjectOrCost(String projectName){
-        driver.switchTo().frame(frameLookupDialogName);
-        driver.findElement(SEARCH_INPUT_LOCATOR).sendKeys(projectName);
-        driver.findElement(GO_BUTTON_LOCATOR).click();
-        driver.findElement(By.xpath("//input[@type='checkbox' and @projectcostobjectname='" + projectName + "']")).click();
+        getDriver().switchTo().frame(frameLookupDialogName);
+        getDriver().findElement(SEARCH_INPUT_LOCATOR).sendKeys(projectName);
+        getDriver().findElement(GO_BUTTON_LOCATOR).click();
+        getDriver().findElement(By.xpath("//input[@type='checkbox' and @projectcostobjectname='" + projectName + "']")).click();
         return this;
     }
 
     public ChooseProjectBlock clickByOK (){
-        driver.findElement(OK_BUTTON_LOCATOR).click();
+        waitForElementEnabled(OK_BUTTON_LOCATOR);
+        getDriver().findElement(OK_BUTTON_LOCATOR).click();
         return this;
     }
 

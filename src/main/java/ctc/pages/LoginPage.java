@@ -1,6 +1,5 @@
 package ctc.pages;
 
-import ctc.Service.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -9,26 +8,26 @@ public class LoginPage extends AbstractPage {
     private static final By USER_NAME_INPUT_LOCATOR = By.xpath("//input[@name='username']");
     private static final By PASSWORD_INPUT_LOCATOR = By.xpath("//input[@name='password']");
     private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//input[@name='Login']");
-    private static final By LOGGED_LABEL_LOCATOR = By.xpath("//td[@id='headerLogin']/div[@class='blInfoLogin']");
+    private static final By LOGIN_PAGE_TEXT_LOCATOR = By.xpath("//td[@class='header1']/h1");
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public LoginPage login(String userName, String pwdName){
-        driver.findElement(USER_NAME_INPUT_LOCATOR).sendKeys(userName);
-        driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(pwdName);
-        driver.findElement(LOGIN_BUTTON_LOCATOR).click();
-        return this;
+    public DashBoardPage login(String userName, String pwdName){
+        getDriver().findElement(USER_NAME_INPUT_LOCATOR).sendKeys(userName);
+        getDriver().findElement(PASSWORD_INPUT_LOCATOR).sendKeys(pwdName);
+        getDriver().findElement(LOGIN_BUTTON_LOCATOR).click();
+        return new DashBoardPage(getDriver());
     }
 
     public LoginPage open(String baseUrl){
-        driver.get(baseUrl + ADDITIONAL_URL);
+        getDriver().get(baseUrl + ADDITIONAL_URL);
         return this;
     }
 
-    public String readLoggedinText(){
-        String result = driver.findElement(LOGGED_LABEL_LOCATOR).getText();
+    public String readIntroductionText(){
+        String result = getDriver().findElement(LOGIN_PAGE_TEXT_LOCATOR).getText();
         return result;
     }
 }
