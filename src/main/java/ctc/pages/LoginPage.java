@@ -1,9 +1,8 @@
 package ctc.pages;
 
+import ctc.Service.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends AbstractPage {
     private final String ADDITIONAL_URL = "/login.do?logout=true&tz=GMT%2B06:00";
@@ -18,7 +17,7 @@ public class LoginPage extends AbstractPage {
 
     public LoginPage login(String userName, String pwdName){
         driver.findElement(USER_NAME_INPUT_LOCATOR).sendKeys(userName);
-        driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(userName);
+        driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(pwdName);
         driver.findElement(LOGIN_BUTTON_LOCATOR).click();
         return this;
     }
